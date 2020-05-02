@@ -1,0 +1,30 @@
+//深度优先遍历
+//举例：判断一个二叉树是否对称
+boolean isSymmetricalDFS(TreeNode pRoot){
+        if(pRoot == null){
+            return true;
+        }
+        //借助栈实现
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(pRoot.left);
+        stack.push(pRoot.right);
+        while(!stack.isEmpty()){
+            TreeNode left = stack.pop();
+            TreeNode right = stack.pop();
+            //如果都为空结束当前循环，stack继续pop结点
+            if(left == null && right == null){
+                continue;
+            }
+            if(left == null || right == null){
+                return false;
+            }
+            if(left.val != right.val){
+                return false;
+            }
+            stack.push(left.left);
+            stack.push(right.right);
+            stack.push(left.right);
+            stack.push(right.left);
+        }
+        return true;
+}

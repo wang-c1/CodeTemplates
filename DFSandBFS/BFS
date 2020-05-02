@@ -1,0 +1,30 @@
+//广度优先遍历
+//举例：判断二叉树是否对称
+boolean isSymmetricalBFS(TreeNode pRoot){
+        if(pRoot == null){
+            return true;
+        }
+        //借助队列实现
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(pRoot.left);
+        queue.offer(pRoot.right);
+        while(!queue.isEmpty()){
+            TreeNode left = queue.poll();
+            TreeNode right = queue.poll();
+            //如果都为空，结束当前循环，queue继续offer结点
+            if(left == null && right == null){
+                continue;
+            }
+            if(left == null || right == null){
+                return false;
+            }
+            if(left.val != right.val){
+                return false;
+            }
+            queue.offer(left.left);
+            queue.offer(right.right);
+            queue.offer(left.right);
+            queue.offer(right.left);
+        }
+        return true;
+    }
